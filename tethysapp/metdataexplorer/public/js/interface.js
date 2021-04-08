@@ -341,34 +341,6 @@ function clearForm() {
     $('#attributes').empty();
 }
 
-/*$('#generate-api-key').click(function () {
-    if ($('#name-in-form').attr('data-type') == 'file') {
-        let attr = [];
-        $('.attr-checkbox').each(function () {
-            if (this.checked) {
-                attr.push($(this).next('label').text());
-            }
-        })
-        for (let attribute in attr) {
-            let html = `<div><b style="justify-self: right">${attr[attribute]}</b></div><div class="api-dimension-container">`;
-            for (let i = 0; i < 3; i++) {
-                let whichDim = 'Time';
-                if (i == 1){
-                    whichDim = 'Latitude';
-                } else if (i==2) {
-                    whichDim = 'Longitude';
-                }
-                html += `<span><b>${whichDim}:&nbsp;</b><input class="api-dimension-input"></span>`;
-            }
-            html += `</div>`;
-            $('#insert-api-attr').append(html);
-        }
-        $('#api-modal').modal('show');
-    } else {
-        alert('Please select a file.');
-    }
-})*/
-
 /////////////////////////////////Geoserver
 /*$('#crate-workspace-button').click(function () {
     let workspace = $('#workspace').val();
@@ -405,4 +377,20 @@ $('#configure-geoserver-button').click(function () {
 $('#upload-shape-resource').click(function () {
     $('#add-shape-resource-modal').modal('hide');
     $('#uploadshp-modal').modal('show');
+})
+
+
+////////////////////////TEST
+
+$('#get-timeseries').click(function () {
+    $.ajax({
+        url: URL_GetTimeSeries,
+        dataType: "json",
+        contentType: "application/json",
+        method: "GET",
+        success: function (result) {
+            let data = result['result'];
+            formatForGraph(data);
+        }
+    })
 })

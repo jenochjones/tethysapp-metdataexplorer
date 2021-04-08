@@ -47,38 +47,43 @@ function getFullArray() {
         method: 'GET',
         success: function (result) {
             let data = result['result'];
-            let timeseries = {};
-            let htmlVariables = '';
-            let i = 1;
-            for (let key in data) {
-                timeseries[key] = JSON.parse(data[key])
-                if (i == 1) {
-                    htmlVariables += `<div class="timeseries-variable" data-variable="${key}" onclick="updateSelectedVariable.call(this)" data-selected="true" style="background-color: #4532fc;"><p style="color: white">${key}</p></div>`;
-                } else {
-                    htmlVariables += `<div class="timeseries-variable" data-variable="${key}" onclick="updateSelectedVariable.call(this)" data-selected="false"><p>${key}</p></div>`;
-                }
-                i += 1;
-            }
-            i = 1;
-            let htmlFeatures = '';
-            for (let feature in timeseries[Object.keys(timeseries)[0]]) {
-                if (feature !== 'datetime') {
-                    if (i == 1) {
-                        htmlFeatures += `<div class="timeseries-features" onclick="updateSelectedFeature.call(this)" data-feature="${feature}" data-selected="true" style="background-color: #4532fc;"><p style="color: white">${feature}</p></div>`;
-                    } else {
-                        htmlFeatures += `<div class="timeseries-features" onclick="updateSelectedFeature.call(this)" data-feature="${feature}" data-selected="false"><p>${feature}</p></div>`;
-                    }
-                    i += 1;
-                }
-            }
-            fullArrayTimeseries = timeseries;
-            $('#timeseries-variable-div').empty().append(htmlVariables);
-            $('#timeseries-feature-div').empty().append(htmlFeatures);
-            $('#full-array-modal').modal('show');
-            $('#loading-modal').modal('hide');
-            drawGraphTwo();
+            formatForGraph(data);
         },
     });
+}
+
+function formatForGraph(data) {
+    console.log(data);
+    let timeseries = {};
+    let htmlVariables = '';
+    let i = 1;
+    for (let key in data) {
+        timeseries[key] = JSON.parse(data[key])
+        if (i == 1) {
+            htmlVariables += `<div class="timeseries-variable" data-variable="${key}" onclick="updateSelectedVariable.call(this)" data-selected="true" style="background-color: #4532fc;"><p style="color: white">${key}</p></div>`;
+        } else {
+            htmlVariables += `<div class="timeseries-variable" data-variable="${key}" onclick="updateSelectedVariable.call(this)" data-selected="false"><p>${key}</p></div>`;
+        }
+        i += 1;
+    }
+    i = 1;
+    let htmlFeatures = '';
+    for (let feature in timeseries[Object.keys(timeseries)[0]]) {
+        if (feature !== 'datetime') {
+            if (i == 1) {
+                htmlFeatures += `<div class="timeseries-features" onclick="updateSelectedFeature.call(this)" data-feature="${feature}" data-selected="true" style="background-color: #4532fc;"><p style="color: white">${feature}</p></div>`;
+            } else {
+                htmlFeatures += `<div class="timeseries-features" onclick="updateSelectedFeature.call(this)" data-feature="${feature}" data-selected="false"><p>${feature}</p></div>`;
+            }
+            i += 1;
+        }
+    }
+    fullArrayTimeseries = timeseries;
+    $('#timeseries-variable-div').empty().append(htmlVariables);
+    $('#timeseries-feature-div').empty().append(htmlFeatures);
+    $('#full-array-modal').modal('show');
+    $('#loading-modal').modal('hide');
+    drawGraphTwo();
 }
 
 function updateSelectedVariable() {

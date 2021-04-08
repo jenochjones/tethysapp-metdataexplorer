@@ -20,6 +20,7 @@ requirements:
       - xarray
       - pygrib
       - cfgrib
+      - python-crontab
   pip:
     - grids
 post:

@@ -106,7 +106,13 @@ class metdataexplorer(TethysAppBase):
                 name='getGeojson',
                 url='metdataexplorer/getGeojson/',
                 controller='metdataexplorer.shapefile.get_geojson'
-            )
+            ),
+            # Test
+            UrlMap(
+                name='GetTimeSeries',
+                url='metdataexplorer/GetTimeSeries/',
+                controller='metdataexplorer.grids.get_time_series'
+            ),
         )
 
         return url_maps

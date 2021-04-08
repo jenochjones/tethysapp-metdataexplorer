@@ -123,6 +123,7 @@ function createDBArray() {
             spatial_shape = $('#spatial-input').val();
         }
     }
+    let cron = `${$('#cron-number-input').val()},${$('#cron-date-select').val()},${$('#cron-start-select').val()}`;
     let databaseInfo = {
         type: $('#name-in-form').attr('data-type'),
         group: group,
@@ -133,6 +134,7 @@ function createDBArray() {
         description: $('#description-input').val(),
         attributes: attr,
         timestamp: timestamp,
+        cron: cron,
     };
     console.log(databaseInfo)
     $.ajax({

@@ -2,6 +2,7 @@ from django.http import JsonResponse
 import json
 import os
 
+from crontab import CronTab
 from .model import Thredds
 from .app import metdataexplorer as app
 
@@ -10,7 +11,7 @@ def update_database(request):
     database_info = json.loads(request.GET["data"])
     SessionMaker = app.get_persistent_store_database('thredds_db', as_sessionmaker=True)
     session = SessionMaker()
-    print(database_info)
+    # print(database_info)
     db = Thredds(
         server_type=database_info['type'],
         group=database_info['group'],
@@ -27,6 +28,16 @@ def update_database(request):
     session.commit()
 
     session.close()
+
+    print(database_info['spatial'])
+    print(type(database_info['spatial']))
+    if database_info['spatial'] != False:
+        file_to_run = os.path.join(os.path.dirname(__file__), 'workspaces', 'app_workspace', 'cron.py')
+        cron = CronTab(user='jonjones')
+        job = cron.new(command='cd /Users/jonjones/tethys/notebooks/ && python test.py')
+        job.minute.every(1)
+
+        cron.write()
 
     success = 'Dababase Updated'
     return JsonResponse({'success': success})

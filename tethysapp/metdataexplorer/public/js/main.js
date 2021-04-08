@@ -48,6 +48,7 @@ function updateFilepath() {
 }
 
 function addVariables(variables) {
+    console.log('Variables:')
     console.log(variables)
     let keys = Object.keys(variables);
     keys.sort();
@@ -60,6 +61,7 @@ function addVariables(variables) {
 }
 
 function addDimensions(dimensions) {
+    console.log(dimensions)
     dimensions = dimensions.split(',');
     let html = "";
     for (let i = 0; i < dimensions.length; i++) {

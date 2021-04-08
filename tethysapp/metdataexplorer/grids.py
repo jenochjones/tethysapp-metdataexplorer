@@ -3,6 +3,7 @@ import grids
 import tempfile
 import os
 import json
+import csv
 import requests
 import geopandas as gpd
 from geojson import dump
@@ -14,6 +15,11 @@ def get_full_array(request):
     attribute_array = json.loads(request.GET['containerAttributes'])
     data = organize_array(attribute_array)
     #print(data)
+    csv_file_path = os.path.join(os.path.dirname(__file__), 'workspaces', 'app_workspace', 'csv_file.csv')
+    with open(csv_file_path, 'w') as f:
+        f.write(json.dumps(data))
+        # for key in data.keys():
+        #    f.write("%s,%s\n" % (key, data[key]))
     return JsonResponse({'result': data})
 
 
@@ -76,9 +82,18 @@ def get_geojson_and_data(spatial, epsg):
 
 
 def get_timeseries_at_geojson(files, var, dim_order, geojson_path, feature_label, stats):
-    #print('Getting TimeSeries')
     series = grids.TimeSeries(files=files, var=var, dim_order=dim_order)
-    #series.interp_units = True
     timeseries_array = series.shape(vector=geojson_path, behavior='features', labelby=feature_label, statistics=stats)
     timeseries_array['datetime'] = timeseries_array['datetime'].dt.strftime('%Y-%m-%d %H:%M:%S')
     return timeseries_array
+
+
+# Test code
+def get_time_series(request):
+    csv_file_path = os.path.join(os.path.dirname(__file__), 'workspaces', 'app_workspace', 'csv_file.csv')
+    with open(csv_file_path, mode='r') as f:
+        data = f.read()
+
+    data = json.loads(data)
+    print(data)
+    return JsonResponse({'result': data})
