@@ -8,7 +8,7 @@ from .geoserver import *
 
 
 def shp_to_geojson(shp_filepath, filename):
-    new_directory = os.path.join(os.path.dirname(__file__), 'workspaces', 'app_workspace')
+    new_directory = os.path.join(os.path.dirname(__file__), 'workspaces', 'app_workspace', 'geojsons')
     current_geojsons = glob.glob(os.path.join(new_directory, '*.geojson'))
     already_made = False
     for geojson in current_geojsons:
@@ -58,7 +58,7 @@ def upload_shapefile(request):
 
 def get_geojson(request):
     file_name = request.GET['name']
-    path_to_geojson = os.path.join(os.path.dirname(__file__), 'workspaces', 'app_workspace', file_name + '.geojson')
+    path_to_geojson = os.path.join(os.path.dirname(__file__), 'workspaces', 'app_workspace', 'geojsons', file_name + '.geojson')
     with open(path_to_geojson) as f:
         geojson = json.load(f)
     return JsonResponse({'geojson': geojson})
@@ -81,7 +81,7 @@ def upload_shapefile_to_geoserver(request):
 
 
 def user_geojsons(request):
-    geojson_path = os.path.join(os.path.dirname(__file__), 'workspaces', 'app_workspace')
+    geojson_path = os.path.join(os.path.dirname(__file__), 'workspaces', 'app_workspace', 'geojsons')
     files = glob.glob(os.path.join(geojson_path, '*.geojson'))
     geojson = {}
 

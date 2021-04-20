@@ -35,7 +35,7 @@ def mean_of_timeseries(path, variable, time_dim):
 
 def get_box_values(request):
     url_dict = request.GET.dict()
-    path_to_netcdf = os.path.join(os.path.dirname(__file__), 'workspaces', 'app_workspace', 'temp.nc')
+    path_to_netcdf = os.path.join(os.path.dirname(__file__), 'workspaces', 'app_workspace', 'temp', 'temp.nc')
     try:
         urllib.request.urlretrieve(url_dict['subsetURL'], path_to_netcdf)
     except OSError:

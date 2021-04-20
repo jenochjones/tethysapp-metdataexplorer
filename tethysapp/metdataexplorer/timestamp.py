@@ -26,7 +26,8 @@ def iterate_files(url):
     parts_of_string = [path_list[iteration].split('#')[0], path_list[iteration].split('#')[2]]
     relevant_files = []
     for next_file in catalog_files:
-        if next_file[:len(parts_of_string[0])] == parts_of_string[0] and next_file[- len(parts_of_string[1]):] == parts_of_string[1]:
+        if next_file[:len(parts_of_string[0])] == parts_of_string[0] and \
+                next_file[- len(parts_of_string[1]):] == parts_of_string[1]:
             relevant_files.append(next_file)
     next_file = get_latest_file(path_list[iteration], relevant_files)
     return catalog_files[next_file].access_urls, next_file

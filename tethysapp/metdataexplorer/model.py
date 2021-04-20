@@ -8,7 +8,7 @@ class Thredds(Base):
     __tablename__ = 'thredds'
 
     id = Column(Integer, primary_key=True)
-    server_type = Column(String(100))
+    type = Column(String(100))
     group = Column(String(100))
     title = Column(String(2000))
     url = Column(String(2000))
@@ -18,8 +18,8 @@ class Thredds(Base):
     attributes = Column(String(20000))
     timestamp = Column(String(2000))
 
-    def __init__(self, server_type, group, title, url, epsg, spatial, description, attributes, timestamp):
-        self.server_type = server_type
+    def __init__(self, type, group, title, url, epsg, spatial, description, attributes, timestamp):
+        self.type = type
         self.group = group
         self.title = title
         self.url = url

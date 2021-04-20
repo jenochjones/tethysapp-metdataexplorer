@@ -39,7 +39,7 @@
         <div class="group-container" style="width: 96%; height: auto; background-color: white; margin: 0% 2% 0% 2%; padding: 2px">
           {% for thredd in thredds %}
           {% if thredd.group == group.name %}
-          <div class="url-list" data-thredds='{"type":"{{ thredd.server_type }}","group":"{{ thredd.group }}","title":"{{ thredd.title }}","url":"{{ thredd.url }}","epsg":"{{ thredd.epsg }}","spatial":{{ thredd.spatial }},"description":"{{ thredd.description|escapejs }}","attributes":{{ thredd.attributes }},"timestamp":"{{ thredd.timestamp }}"}'>
+          <div class="url-list" data-thredds='{"type":"{{ thredd.type }}","group":"{{ thredd.group }}","title":"{{ thredd.title }}","url":"{{ thredd.url }}","epsg":"{{ thredd.epsg }}","spatial":{{ thredd.spatial }},"description":"{{ thredd.description|escapejs }}","attributes":{{ thredd.attributes }},"timestamp":"{{ thredd.timestamp }}"}'>
             <div class="url-list-label" style="width: 70%; overflow-x: scroll">
               <h4>{{ thredd.title }}</h4>
             </div>
@@ -426,10 +426,11 @@
       let URL_getGeojson = "{% url 'metdataexplorer:getGeojson' %}";
 
       let URL_listGeoserverLayers = "{% url 'metdataexplorer:geoserverListLayers' %}";
-      // let URL_createGeoserverWorkspace = "{% url 'metdataexplorer:createGeoserverWorkspace' %}";
-      // let URL_uploadShapefileToGeoserver = "{% url 'metdataexplorer:uploadShapefileToGeoserver' %}";
       let pathToFileImage = "{% static 'metdataexplorer/images/fileImage.png' %}";
       let pathToFolderImage = "{% static 'metdataexplorer/images/folderImage.png' %}";
   </script>
 
 {% endblock %}
+
+{# let URL_createGeoserverWorkspace = "{% url 'metdataexplorer:createGeoserverWorkspace' %}"; #}
+{# let URL_uploadShapefileToGeoserver = "{% url 'metdataexplorer:uploadShapefileToGeoserver' %}"; #}

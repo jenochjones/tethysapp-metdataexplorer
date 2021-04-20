@@ -17,6 +17,29 @@ let spatial_shape = false;
 //Included with draw.js: drawnItems, shpLayer
 //Included with map.js: mapObj, insetMapObj, basemapObj, layerControlObj
 
+/*$(document).ready(function() {
+    console.log('ready')
+    $.ajax({
+        url: URL_updateContainers,
+        dataType: "json",
+        contentType: "application/json",
+        async: true,
+        method: "GET",
+        success: function (result) {
+            let updatedContainers = result["updatedContainers"];
+            console.log(updatedContainers)
+            console.log('containers updated')
+            let containerList = ';'
+            for (let key in Object.keys(updatedContainers)) {
+                if (updatedContainers[key] !== false) {
+                    containerList += ` ${key},`;
+                }
+            }
+            alert(`The following containers were updated: ${containerList}`);
+        }
+    })
+});*/
+
 function updateFilepath() {
     $("#loading-modal").modal("show");
     if ($(this).attr("class") == "folder") {
@@ -140,7 +163,7 @@ function getFoldersAndFiles(url) {
     $('#name-in-form').attr('data-type', 'folder');
     $.ajax({
         url: URL_getFilesAndFolders,
-        data: {'url': url},
+        data: {url: url},
         dataType: "json",
         contentType: "application/json",
         method: "GET",
@@ -198,7 +221,7 @@ function getLatestFile(url) {
     var fileName = '';
     $.ajax({
         url: URL_getLatestFiles,
-        data: {'url': url},
+        data: {url: url},
         dataType: 'json',
         contentType: "application/json",
         method: 'GET',

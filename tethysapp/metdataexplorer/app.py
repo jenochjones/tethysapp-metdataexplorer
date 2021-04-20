@@ -43,11 +43,6 @@ class metdataexplorer(TethysAppBase):
                 controller='metdataexplorer.shapefile.upload_shapefile'
             ),
             UrlMap(
-                name='uploadShapefileToGeoserver',
-                url='metdataexplorer/uploadShapefileToGeoserver/',
-                controller='metdataexplorer.shapefile.upload_shapefile_to_geoserver'
-            ),
-            UrlMap(
                 name='userGeojson',
                 url='metdataexplorer/userGeojsons/',
                 controller='metdataexplorer.shapefile.user_geojsons'
@@ -88,11 +83,6 @@ class metdataexplorer(TethysAppBase):
                 controller='metdataexplorer.geoserver.list_geoserver_resources'
             ),
             UrlMap(
-                name='createGeoserverWorkspace',
-                url='metdataexplorer/workspace/',
-                controller='metdataexplorer.geoserver.geoserver_create_workspace'
-            ),
-            UrlMap(
                 name='getLatestFiles',
                 url='metdataexplorer/latest/',
                 controller='metdataexplorer.timestamp.url_to_iterate_files'
@@ -106,10 +96,21 @@ class metdataexplorer(TethysAppBase):
                 name='getGeojson',
                 url='metdataexplorer/getGeojson/',
                 controller='metdataexplorer.shapefile.get_geojson'
-            )
+            ),
+            # UrlMap(
+            #    name='createGeoserverWorkspace',
+            #    url='metdataexplorer/workspace/',
+            #    controller='metdataexplorer.geoserver.geoserver_create_workspace'
+            # ),
+            # UrlMap(
+            #    name='uploadShapefileToGeoserver',
+            #    url='metdataexplorer/uploadShapefileToGeoserver/',
+            #    controller='metdataexplorer.shapefile.upload_shapefile_to_geoserver'
+            # ),
         )
-
         return url_maps
+
+# This app requires a database and has the option to link a geoserver.
 
     def persistent_store_settings(self):
         ps_settings = (

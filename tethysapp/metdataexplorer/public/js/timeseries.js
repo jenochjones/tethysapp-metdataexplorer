@@ -13,9 +13,9 @@ function getTimeseries(coord) {
         $.ajax({
             url: URL_getBoxValues,
             data: {
-                'subsetURL': subsetUrlFull,
-                'var': vars,
-                'time': time,
+                subsetURL: subsetUrlFull,
+                var: vars,
+                time: time,
             },
             dataType: 'json',
             contentType: "application/json",
@@ -40,7 +40,9 @@ function getFullArray() {
     $.ajax({
         url: URL_getFullArray,
         data: {
-            'containerAttributes': JSON.stringify(containerAttributes),
+            containerName: containerAttributes['title'],
+            containerGroup: containerAttributes['group'],
+            //'containerAttributes': JSON.stringify(containerAttributes),
         },
         dataType: 'json',
         contentType: "application/json",

@@ -2,6 +2,11 @@ from django.http import JsonResponse, HttpResponse
 
 from .app import metdataexplorer as app
 
+#########################################################################################
+"""
+The only function currently used in the app is list_geoserver_resources. The rest are generic functions
+for interacting with the geoserver linked with the app.
+"""
 
 def geoserver_create_workspace(request):
     workspace_name = request.GET['workspaceName']
@@ -33,7 +38,22 @@ def list_geoserver_layers(request):
     return JsonResponse({'result': result['result']})
 
 
+def list_geoserver_stores(request):
+    engine = app.get_spatial_dataset_service('geoserver', as_engine=True)
+    result = engine.list_stores(workspace=None, with_properties=True, debug=False)
+    print(result)
+    if not result['success']:
+        raise
+    return JsonResponse({'result': result['result']})
+
+
+################################################################################
+
+
 def list_geoserver_resources(request):
+    """
+    This function retrieves a list of all the layers in the geoserver linked to the app.
+    """
     engine = app.get_spatial_dataset_service('geoserver', as_engine=True)
     result = engine.list_resources(with_properties=True, debug=False)
     workspaces = {}
@@ -53,12 +73,3 @@ def list_geoserver_resources(request):
             workspaces[shape['workspace']][shape['store']][shape['name']] = False
 
     return JsonResponse({'result': workspaces})
-
-
-def list_geoserver_stores(request):
-    engine = app.get_spatial_dataset_service('geoserver', as_engine=True)
-    result = engine.list_stores(workspace=None, with_properties=True, debug=False)
-    print(result)
-    if not result['success']:
-        raise
-    return JsonResponse({'result': result['result']})
